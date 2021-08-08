@@ -1,10 +1,14 @@
 var router = require('express').Router();
 var audioController = require('../controller/audio');
 var multer = require('multer');
+var config = require('../../lib/config');
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'audio-uploads');
+        cb(
+            null,
+            `${config.audioFiles.root}/${config.audioFiles.upload.folder}`
+        );
     },
     filename: function (req, file, cb) {
         cb(null, `${Date.now()}-${file.originalname}`);

@@ -3,8 +3,14 @@ const utils = require('../../lib/utils');
 
 module.exports = {
     storeAudio: async function (req, res) {
-        console.log(req.file);
-
-        res.send(200);
+        var file = req.file;
+        var fileName = file.filename;
+        try {
+            await audioService.trimAudio(fileName);
+            res.send(200);
+        } catch (error) {
+            console.log(error);
+            res.send(500);
+        }
     },
 };
